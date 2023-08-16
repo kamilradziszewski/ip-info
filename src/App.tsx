@@ -1,7 +1,7 @@
-import './App.scss'
+import "./App.scss";
 
 function App() {
   return <p>IP Info</p>;
 }
 
-export default App
+export default App;
