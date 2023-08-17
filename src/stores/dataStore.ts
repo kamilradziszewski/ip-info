@@ -19,6 +19,8 @@ export default class DataStore {
 
   apiData: IPRecord[] = [];
 
+  searchInputValidationError: string = "";
+
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false });
     this.rootStore = rootStore;
@@ -51,5 +53,10 @@ export default class DataStore {
 
   clearData() {
     this.apiData = [];
+    this.searchInputValidationError = "";
+  }
+
+  setSearchInputValidationError(message: string) {
+    this.searchInputValidationError = message;
   }
 }
