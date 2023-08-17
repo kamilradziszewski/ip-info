@@ -1,4 +1,5 @@
 import { IPRecord } from "../../../stores/dataStore";
+import { formatDate } from "../../../utils/formatDate";
 
 function TableRow({ record }: { record: IPRecord }) {
   return (
@@ -6,8 +7,8 @@ function TableRow({ record }: { record: IPRecord }) {
       <td>{record.query}</td>
       <td>{record.country || "—"}</td>
       <td>{record.org || "—"}</td>
-      <td>{record.requestTime}</td>
-      <td>{record.responseTime}</td>
+      <td>{formatDate(record.requestTime)}</td>
+      <td>{formatDate(record.responseTime)}</td>
     </tr>
   );
 }
