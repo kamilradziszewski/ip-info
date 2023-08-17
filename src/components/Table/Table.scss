@@ -43,6 +43,21 @@
           background-color: #f4f4f5;
         }
       }
+
+      &--Error {
+        color: $danger;
+        cursor: default;
+
+        .Timestamp__Milliseconds {
+          color: $danger;
+        }
+
+        &:hover {
+          .Table__Td {
+            background-color: initial;
+          }
+        }
+      }
     }
   }
 
@@ -73,6 +88,49 @@
 
     &--AlignLeft {
       text-align: left;
+    }
+
+    &Content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &--Error {
+        &:hover {
+          .Table__ErrorTooltip {
+            transform: scale(100%);
+            transition: transform $transition-fast;
+          }
+        }
+      }
+    }
+  }
+
+  &__Error {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+
+    &Icon {
+      margin-left: 0.25rem;
+    }
+
+    &Tooltip {
+      z-index: 10;
+      position: absolute;
+      top: -2.2rem;
+      transform: translateX(60%);
+      white-space: nowrap;
+      background-color: $white;
+      border-radius: $radius-medium;
+      color: $black;
+      padding: 0.3rem 0.6rem;
+      background-color: $red-400;
+      color: $white;
+      transform: scale(0%);
+      transition: transform $transition-fast 0.5s;
     }
   }
 
