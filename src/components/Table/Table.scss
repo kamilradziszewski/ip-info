@@ -50,6 +50,8 @@
     line-height: 1.25rem;
     padding: 0.5rem 0.75rem;
     text-align: center;
+    vertical-align: top;
+    transition: background-color $transition-fast;
 
     &:nth-child(1) {
       width: 15%;
@@ -81,8 +83,4 @@
     padding: 2rem 1rem 1rem;
     text-align: center;
   }
-}
-
-.Timestamp__Milliseconds {
-  color: $gray-400;
 }

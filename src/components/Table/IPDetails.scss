@@ -1,0 +1,24 @@
+.IPDetails {
+  padding-bottom: 1rem;
+
+  &__Title {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &__Table {
+    margin-top: 1rem;
+    border-spacing: 0.2rem;
+  }
+
+  &__TableCell {
+    vertical-align: top;
+
+    &--Title {
+      width: 9rem;
+      font-weight: 500;
+      text-align: right;
+      padding-right: 0.5rem;
+    }
+  }
+}

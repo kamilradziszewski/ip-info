@@ -1,12 +1,19 @@
 import { IPRecord } from "../../../stores/dataStore";
+import { useStore } from "../../../stores/store";
 import { formatDate } from "../../../utils/formatDate";
 
 function TableRow({ record }: { record: IPRecord }) {
+  const { modalStore } = useStore();
+
   const requestTimeArray = formatDate(record.requestTime);
   const responseTimeArray = formatDate(record.responseTime);
 
   return (
-    <tr key={record.query} className="Table__TbodyTr">
+    <tr
+      key={record.query}
+      className="Table__TbodyTr"
+      onClick={() => modalStore.setModalData(record)}
+    >
       <td className="Table__Td">{record.query}</td>
       <td className="Table__Td">
         {requestTimeArray[0]}

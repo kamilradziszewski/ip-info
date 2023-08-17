@@ -1,4 +1,9 @@
 .Container {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: auto;
+  padding: 0 1rem;
+}
+
+.Timestamp__Milliseconds {
+  color: $gray-400;
 }
