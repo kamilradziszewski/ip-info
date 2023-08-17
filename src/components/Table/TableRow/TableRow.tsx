@@ -2,13 +2,24 @@ import { IPRecord } from "../../../stores/dataStore";
 import { formatDate } from "../../../utils/formatDate";
 
 function TableRow({ record }: { record: IPRecord }) {
+  const requestTimeArray = formatDate(record.requestTime);
+  const responseTimeArray = formatDate(record.responseTime);
+
   return (
-    <tr key={record.query}>
-      <td>{record.query}</td>
-      <td>{record.country || "—"}</td>
-      <td>{record.org || "—"}</td>
-      <td>{formatDate(record.requestTime)}</td>
-      <td>{formatDate(record.responseTime)}</td>
+    <tr key={record.query} className="Table__TbodyTr">
+      <td className="Table__Td">{record.query}</td>
+      <td className="Table__Td">
+        {requestTimeArray[0]}
+        <span className="Timestamp__Milliseconds">.{requestTimeArray[1]}</span>
+      </td>
+      <td className="Table__Td">
+        {responseTimeArray[0]}
+        <span className="Timestamp__Milliseconds">.{responseTimeArray[1]}</span>
+      </td>
+      <td className="Table__Td Table__Td--AlignLeft">
+        {record.country || "—"}
+      </td>
+      <td className="Table__Td Table__Td--AlignLeft">{record.org || "—"}</td>
     </tr>
   );
 }

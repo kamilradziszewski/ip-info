@@ -9,11 +9,11 @@ function App() {
   return (
     <Observer>
       {() => (
-        <>
+        <div className="Container">
           <Header />
           <Search />
           <Table />
-        </>
+        </div>
       )}
     </Observer>
   );
