@@ -1,11 +1,13 @@
-$radius-medium: 0.75rem;
-$radius-large: 0.875rem;
-
+$font-family: Rubik, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 $font-small: 0.85rem;
 $font-tiny: 0.75rem;
 
+$radius-medium: 0.75rem;
+$radius-large: 0.875rem;
+
 $white: #fafafa;
 $gray-100: #f4f4f5;
+$gray-300: #d4d4d8;
 $gray-400: #a1a1aa;
 $gray-500: #71717a;
 $red-400: #f54180;
@@ -18,4 +20,4 @@ $shadow-small:
   rgba(0, 0, 0, 0.06) 0px 2px 10px 0px,
   rgba(0, 0, 0, 0.3) 0px 0px 1px 0px;
 
-$transition-fast: 0.1s ease-in-out;
+$transition-fast: 0.15s ease-in-out;

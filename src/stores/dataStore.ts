@@ -18,6 +18,7 @@ export default class DataStore {
   rootStore: RootStore;
 
   apiData: IPRecord[] = [];
+  searchPhrase: string = "";
 
   searchInputValidationError: string = "";
 
@@ -53,10 +54,26 @@ export default class DataStore {
 
   clearData() {
     this.apiData = [];
+    this.searchPhrase = "";
     this.searchInputValidationError = "";
   }
 
   setSearchInputValidationError(message: string) {
     this.searchInputValidationError = message;
+  }
+
+  setSearchPhrase(searchPhrase: string) {
+    this.searchPhrase = searchPhrase;
+  }
+
+  get filteredApiData() {
+    return this.searchPhrase.trim() === ""
+      ? this.apiData
+      : this.apiData.filter(
+          (record) =>
+            record.country
+              ?.toLowerCase()
+              .includes(this.searchPhrase.toLowerCase().trim()),
+        );
   }
 }

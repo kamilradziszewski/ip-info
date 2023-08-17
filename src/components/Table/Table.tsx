@@ -25,16 +25,36 @@ function Table() {
                   <th className="Table__Th">Country</th>
                   <th className="Table__Th">Company</th>
                 </tr>
+                {dataStore.apiData.length > 0 ? (
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <input
+                        type="search"
+                        className="Input Table__CountrySearchInput"
+                        placeholder="Filter by country"
+                        onChange={(e) => {
+                          dataStore.setSearchPhrase(e.target.value);
+                        }}
+                      />
+                    </td>
+                    <td></td>
+                  </tr>
+                ) : null}
               </thead>
               <tbody className="Table__Tbody">
-                {dataStore.apiData.length > 0 ? (
-                  dataStore.apiData.map((record) => (
+                {dataStore.filteredApiData.length > 0 ? (
+                  dataStore.filteredApiData.map((record) => (
                     <TableRow key={record.query} record={record} />
                   ))
                 ) : (
                   <tr>
                     <td className="Table__EmptyState" colSpan={5}>
-                      No data to display.
+                      {dataStore.searchPhrase !== ""
+                        ? "Country not found"
+                        : "No data to display"}
                     </td>
                   </tr>
                 )}
