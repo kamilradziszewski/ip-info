@@ -2,6 +2,8 @@ import { Observer } from "mobx-react-lite";
 
 import { useStore } from "../../stores/store";
 
+import TableRow from "./TableRow/TableRow";
+
 function Table() {
   const { dataStore } = useStore();
 
@@ -21,13 +23,7 @@ function Table() {
           <tbody>
             {dataStore.apiData.length > 0 ? (
               dataStore.apiData.map((record) => (
-                <tr key={record.query}>
-                  <td>{record.query}</td>
-                  <td>{record.country || "—"}</td>
-                  <td>{record.org || "—"}</td>
-                  <td>{record.requestTime}</td>
-                  <td>{record.responseTime}</td>
-                </tr>
+                <TableRow key={record.query} record={record} />
               ))
             ) : (
               <tr>
