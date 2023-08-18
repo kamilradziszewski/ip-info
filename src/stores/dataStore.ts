@@ -1,8 +1,18 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 
 import http from "../http/httpConfig";
 
 import { RootStore } from "./store";
+
+const notyf = new Notyf({
+  position: { x: "center", y: "top" },
+  dismissible: true,
+  duration: 3000,
+});
+const errorToast = () =>
+  notyf.error("An error occured.<br />Please try again.");
 
 export interface IPRecord {
   query: string;
@@ -68,9 +78,13 @@ export default class DataStore {
         this.isLoading = false;
       });
     } catch (error) {
-      console.error(error);
+      runInAction(() => {
+        console.error(error);
 
-      this.isLoading = false;
+        errorToast();
+
+        this.isLoading = false;
+      });
     }
   };
 
