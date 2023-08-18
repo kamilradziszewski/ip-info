@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { Observer } from "mobx-react-lite";
 
 import { CgSpinner } from "react-icons/cg";
+import { LuSearch } from "react-icons/lu";
 
 import { useStore } from "../../stores/store";
 
@@ -34,7 +35,7 @@ function Search() {
     );
     if (invalidIpAddress) {
       dataStore.setSearchInputValidationError(
-        `Invalid IP Address format: "${invalidIpAddress}"`,
+        `Invalid IP Address format: ${invalidIpAddress}`,
       );
       return;
     }
@@ -66,19 +67,28 @@ function Search() {
       {() => (
         <form onSubmit={handleSubmit} className="Search">
           <div className="Search__Row">
-            <input
-              type="search"
-              value={searchInputValue}
-              onChange={(e) => {
-                dataStore.setSearchInputValidationError("");
-                setSearchInputValue(e.target.value);
-              }}
-              className={`Input Search__Input ${
-                dataStore.searchInputValidationError
-                  ? "Search__Input--Error"
-                  : ""
-              }`}
-            />
+            <label htmlFor="search-input" className="Search__InputLabel">
+              Enter IP addresses separated by comas
+            </label>
+          </div>
+          <div className="Search__Row">
+            <div className="Search__InputWrapper">
+              <input
+                type="search"
+                value={searchInputValue}
+                id="search-input"
+                onChange={(e) => {
+                  dataStore.setSearchInputValidationError("");
+                  setSearchInputValue(e.target.value);
+                }}
+                className={`Input Search__Input ${
+                  dataStore.searchInputValidationError
+                    ? "Search__Input--Error"
+                    : ""
+                }`}
+              />
+              <LuSearch className="Search__InputIcon" size="18px" />
+            </div>
 
             <button
               type="submit"
