@@ -45,6 +45,12 @@
     &:nth-child(5) {
       width: 25%;
     }
+
+    &Content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   // BODY
@@ -109,6 +115,47 @@
       }
     }
   }
+
+  // SORTING ARROWS
+
+  &__Sort {
+    cursor: pointer;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  &__SortArrows {
+    position: relative;
+    margin-left: 0.2rem;
+    width: 18px;
+    height: 18px;
+  }
+
+  &__SortArrow {
+    position: absolute;
+    left: 0;
+    fill: $gray-400;
+    transition: fill $transition-fast;
+
+    &Up {
+      transform: translateY(-3px);
+    }
+    &Down {
+      transform: translateY(4px);
+    }
+
+    &Up,
+    &Down {
+      &--Active {
+        fill: $black;
+      }
+    }
+  }
+
+  // ERROR ICON & TOOLTIP
 
   &__Error {
     position: relative;

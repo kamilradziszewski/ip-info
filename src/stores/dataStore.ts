@@ -14,11 +14,24 @@ export interface IPRecord {
   responseTime: number;
 }
 
+export type SortKey = "reqAsc" | "reqDesc" | "resAsc" | "resDesc" | "";
+
+const sortMap: {
+  [K in SortKey]: (a: IPRecord, b: IPRecord) => number;
+} = {
+  reqAsc: (a, b) => a.requestTime - b.requestTime,
+  reqDesc: (a, b) => b.requestTime - a.requestTime,
+  resAsc: (a, b) => a.responseTime - b.responseTime,
+  resDesc: (a, b) => b.responseTime - a.responseTime,
+  "": () => 0,
+};
+
 export default class DataStore {
   rootStore: RootStore;
 
   apiData: IPRecord[] = [];
   searchPhrase: string = "";
+  sortKey: SortKey = "";
 
   searchInputValidationError: string = "";
 
@@ -54,8 +67,9 @@ export default class DataStore {
 
   clearData() {
     this.apiData = [];
-    this.searchPhrase = "";
     this.searchInputValidationError = "";
+    this.searchPhrase = "";
+    this.sortKey = "";
   }
 
   setSearchInputValidationError(message: string) {
@@ -66,14 +80,23 @@ export default class DataStore {
     this.searchPhrase = searchPhrase;
   }
 
+  setSortKey(sortKey: SortKey) {
+    this.sortKey = sortKey;
+  }
+
   get filteredApiData() {
-    return this.searchPhrase.trim() === ""
-      ? this.apiData
-      : this.apiData.filter(
-          (record) =>
-            record.country
-              ?.toLowerCase()
-              .includes(this.searchPhrase.toLowerCase().trim()),
-        );
+    const filteredApiData =
+      this.searchPhrase.trim() === ""
+        ? this.apiData
+        : this.apiData.filter(
+            (record) =>
+              record.country
+                ?.toLowerCase()
+                .includes(this.searchPhrase.toLowerCase().trim()),
+          );
+
+    return this.sortKey === ""
+      ? filteredApiData
+      : filteredApiData.slice().sort((a, b) => sortMap[this.sortKey](a, b));
   }
 }

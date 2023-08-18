@@ -1,5 +1,8 @@
 import { Observer } from "mobx-react-lite";
 
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+
+import { SortKey } from "../../stores/dataStore";
 import { useStore } from "../../stores/store";
 import { formatDate } from "../../utils/formatDate";
 import Modal from "../Modal/Modal";
@@ -11,6 +14,24 @@ import TableRow from "./TableRow/TableRow";
 function Table() {
   const { dataStore, modalStore } = useStore();
 
+  function getSortKey(param: "request" | "response"): SortKey {
+    if (param === "request") {
+      return ["", "resAsc", "resDesc"].includes(dataStore.sortKey)
+        ? "reqAsc"
+        : dataStore.sortKey === "reqAsc"
+        ? "reqDesc"
+        : "";
+    } else if (param === "response") {
+      return ["", "reqAsc", "reqDesc"].includes(dataStore.sortKey)
+        ? "resAsc"
+        : dataStore.sortKey === "resAsc"
+        ? "resDesc"
+        : "";
+    } else {
+      return "";
+    }
+  }
+
   return (
     <Observer>
       {() => (
@@ -20,8 +41,62 @@ function Table() {
               <thead className="Table__Thead">
                 <tr>
                   <th className="Table__Th">IP Address</th>
-                  <th className="Table__Th">Request Time</th>
-                  <th className="Table__Th">Response Time</th>
+                  <th className="Table__Th">
+                    <div
+                      className="Table__ThContent Table__Sort"
+                      onClick={() => {
+                        dataStore.setSortKey(getSortKey("request"));
+                      }}
+                    >
+                      Request Time
+                      <div className="Table__SortArrows">
+                        <TiArrowSortedUp
+                          className={`Table__SortArrow Table__SortArrowUp ${
+                            dataStore.sortKey === "reqAsc"
+                              ? "Table__SortArrowUp--Active"
+                              : ""
+                          }`}
+                          size="18px"
+                        />
+                        <TiArrowSortedDown
+                          className={`Table__SortArrow Table__SortArrowDown ${
+                            dataStore.sortKey === "reqDesc"
+                              ? "Table__SortArrowDown--Active"
+                              : ""
+                          }`}
+                          size="18px"
+                        />
+                      </div>
+                    </div>
+                  </th>
+                  <th className="Table__Th">
+                    <div
+                      className="Table__ThContent Table__Sort"
+                      onClick={() => {
+                        dataStore.setSortKey(getSortKey("response"));
+                      }}
+                    >
+                      Response Time{" "}
+                      <div className="Table__SortArrows">
+                        <TiArrowSortedUp
+                          className={`Table__SortArrow Table__SortArrowUp ${
+                            dataStore.sortKey === "resAsc"
+                              ? "Table__SortArrowUp--Active"
+                              : ""
+                          }`}
+                          size="18px"
+                        />
+                        <TiArrowSortedDown
+                          className={`Table__SortArrow Table__SortArrowDown ${
+                            dataStore.sortKey === "resDesc"
+                              ? "Table__SortArrowDown--Active"
+                              : ""
+                          }`}
+                          size="18px"
+                        />
+                      </div>
+                    </div>
+                  </th>
                   <th className="Table__Th">Country</th>
                   <th className="Table__Th">Company</th>
                 </tr>
