@@ -1,0 +1,72 @@
+.Pagination {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: $font-small;
+  color: $gray-500;
+
+  &__Select {
+    margin-left: 0.3rem;
+    margin-right: 1rem;
+  }
+
+  &__Button {
+    border: 2px solid transparent;
+    border-radius: $radius-medium;
+    background-color: transparent;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition:
+      background-color $transition-fast,
+      border $transition-fast;
+    outline: none;
+
+    &:hover {
+      background-color: $primary;
+
+      .Pagination__Chevron {
+        stroke: $white;
+      }
+    }
+
+    &:focus-visible {
+      border-color: $gray-500;
+    }
+
+    &--Disabled {
+      cursor: default;
+
+      .Pagination__Chevron {
+        stroke: $gray-300;
+      }
+
+      &:hover {
+        background-color: transparent;
+
+        .Pagination__Chevron {
+          stroke: $gray-300;
+        }
+      }
+    }
+  }
+
+  &__Chevron {
+    stroke: $gray-500;
+    transition: stroke $transition-fast;
+  }
+
+  &__Chevron {
+    &--Left {
+      margin-right: 2px;
+    }
+    &--Right {
+      margin-left: 2px;
+    }
+  }
+}

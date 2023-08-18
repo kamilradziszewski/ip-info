@@ -8,10 +8,9 @@
   color: $primary;
 }
 
-.Input {
-  height: 2.5rem;
-  padding: 0 0.75rem;
-  border: 1px solid $gray-300;
+.Input,
+.Select {
+  border: 2px solid $gray-300;
   border-radius: $radius-medium;
   background-color: $white;
   font-family: $font-family;
@@ -22,12 +21,22 @@
 
   &:hover {
     border-color: $gray-400;
-    border-width: 2px;
   }
 
-  &:focus,
   &:focus-visible {
     border-color: $gray-400;
     border-width: 2px;
   }
+}
+
+.Input {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+}
+
+.Select {
+  height: 2rem;
+  padding-left: 0.75rem;
+  cursor: pointer;
+  color: $gray-500;
 }

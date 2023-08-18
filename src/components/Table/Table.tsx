@@ -6,13 +6,14 @@ import { SortKey } from "../../stores/dataStore";
 import { useStore } from "../../stores/store";
 import { formatDate } from "../../utils/formatDate";
 import Modal from "../Modal/Modal";
+import Pagination from "../Pagination/Pagination";
 
 import "./IPDetails.scss";
 import "./Table.scss";
 import TableRow from "./TableRow/TableRow";
 
 function Table() {
-  const { dataStore, modalStore } = useStore();
+  const { dataStore, modalStore, paginationStore } = useStore();
 
   function getSortKey(param: "request" | "response"): SortKey {
     if (param === "request") {
@@ -121,9 +122,15 @@ function Table() {
               </thead>
               <tbody className="Table__Tbody">
                 {dataStore.filteredApiData.length > 0 ? (
-                  dataStore.filteredApiData.map((record) => (
-                    <TableRow key={record.query} record={record} />
-                  ))
+                  dataStore.filteredApiData
+                    .slice(
+                      paginationStore.rowsPerPage *
+                        (paginationStore.currentPage - 1),
+                      paginationStore.rowsPerPage * paginationStore.currentPage,
+                    )
+                    .map((record) => (
+                      <TableRow key={record.query} record={record} />
+                    ))
                 ) : (
                   <tr>
                     <td className="Table__EmptyState" colSpan={5}>
@@ -136,6 +143,8 @@ function Table() {
               </tbody>
             </table>
           </div>
+
+          {dataStore.apiData.length > 0 && <Pagination />}
 
           <Modal>
             <div className="IPDetails">

@@ -70,6 +70,7 @@ export default class DataStore {
     this.searchInputValidationError = "";
     this.searchPhrase = "";
     this.sortKey = "";
+    this.rootStore.paginationStore.setCurrentPage(1);
   }
 
   setSearchInputValidationError(message: string) {
@@ -78,10 +79,12 @@ export default class DataStore {
 
   setSearchPhrase(searchPhrase: string) {
     this.searchPhrase = searchPhrase;
+    this.rootStore.paginationStore.setCurrentPage(1);
   }
 
   setSortKey(sortKey: SortKey) {
     this.sortKey = sortKey;
+    this.rootStore.paginationStore.setCurrentPage(1);
   }
 
   get filteredApiData() {
@@ -98,5 +101,9 @@ export default class DataStore {
     return this.sortKey === ""
       ? filteredApiData
       : filteredApiData.slice().sort((a, b) => sortMap[this.sortKey](a, b));
+  }
+
+  get itemsCount() {
+    return this.filteredApiData.length;
   }
 }
