@@ -2,7 +2,11 @@ import { FormEvent, useState } from "react";
 
 import { Observer } from "mobx-react-lite";
 
+import { CgSpinner } from "react-icons/cg";
+
 import { useStore } from "../../stores/store";
+
+import "./Search.scss";
 
 function Search() {
   const { dataStore } = useStore();
@@ -40,7 +44,7 @@ function Search() {
     );
     if (duplicateIp) {
       dataStore.setSearchInputValidationError(
-        `IP Address ${duplicateIp} is already fetched. Remove it from the search`,
+        `IP Address ${duplicateIp} is already fetched. Exclude it from the query`,
       );
       return;
     }
@@ -60,31 +64,56 @@ function Search() {
   return (
     <Observer>
       {() => (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="search"
-            value={searchInputValue}
-            onChange={(e) => {
-              dataStore.setSearchInputValidationError("");
-              setSearchInputValue(e.target.value);
-            }}
-          />
-          {dataStore.searchInputValidationError ? (
-            <>{dataStore.searchInputValidationError}</>
-          ) : null}
-          <button type="submit" disabled={dataStore.isLoading}>
-            {dataStore.isLoading ? "Loading…" : "Fetch data"}
-          </button>
-          <button
-            type="button"
-            disabled={dataStore.isLoading}
-            onClick={() => {
-              dataStore.clearData();
-              setSearchInputValue("");
-            }}
-          >
-            Clear data
-          </button>
+        <form onSubmit={handleSubmit} className="Search">
+          <div className="Search__Row">
+            <input
+              type="search"
+              value={searchInputValue}
+              onChange={(e) => {
+                dataStore.setSearchInputValidationError("");
+                setSearchInputValue(e.target.value);
+              }}
+              className={`Input Search__Input ${
+                dataStore.searchInputValidationError
+                  ? "Search__Input--Error"
+                  : ""
+              }`}
+            />
+
+            <button
+              type="submit"
+              disabled={dataStore.isLoading}
+              className={`Button Button__Primary Search__Button ${
+                dataStore.isLoading ? "Search__Button--Loading" : ""
+              }`}
+            >
+              {dataStore.isLoading ? (
+                <>
+                  <CgSpinner className="Search__ButtonSpinner" /> Loading…
+                </>
+              ) : (
+                "Fetch data"
+              )}
+            </button>
+            <button
+              type="button"
+              disabled={dataStore.isLoading}
+              onClick={() => {
+                dataStore.clearData();
+                setSearchInputValue("");
+              }}
+              className="Button Button__Danger Search__Button"
+            >
+              Clear data
+            </button>
+          </div>
+          <div className="Search__Row">
+            <div className="Search__ErrorMessage">
+              {dataStore.searchInputValidationError ? (
+                <>{dataStore.searchInputValidationError}</>
+              ) : null}
+            </div>
+          </div>
         </form>
       )}
     </Observer>

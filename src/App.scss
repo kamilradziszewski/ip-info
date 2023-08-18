@@ -30,7 +30,7 @@
 }
 
 .Input {
-  height: 2.5rem;
+  height: 2.5;
   padding: 0 0.75rem;
 }
 
@@ -39,4 +39,47 @@
   padding-left: 0.75rem;
   cursor: pointer;
   color: $gray-500;
+}
+
+.Button {
+  height: 2.5rem;
+  border: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-radius: $radius-medium;
+  font-family: $font-family;
+  font-size: $font-small;
+  line-height: 1rem;
+  transition:
+    background-color $transition-fast,
+    outline $transition-fast;
+  white-space: nowrap;
+  padding: 0 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &__Primary {
+    background-color: $primary;
+
+    &:hover {
+      background-color: lighten($color: $primary, $amount: 15);
+    }
+
+    &:focus-visible {
+      outline-color: $gray-500;
+    }
+  }
+
+  &__Danger {
+    background-color: $danger;
+
+    &:hover {
+      background-color: lighten($color: $danger, $amount: 15);
+    }
+
+    &:focus-visible {
+      outline-color: $gray-500;
+    }
+  }
 }
