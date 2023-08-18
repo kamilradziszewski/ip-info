@@ -35,12 +35,16 @@ export default class DataStore {
 
   searchInputValidationError: string = "";
 
+  isLoading: boolean = false;
+
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false });
     this.rootStore = rootStore;
   }
 
   fetchData = async (ipArray: string[]) => {
+    this.isLoading = true;
+
     try {
       const requestTime = Date.now();
 
@@ -58,10 +62,15 @@ export default class DataStore {
             responseTime: response.headers.responseTime,
           }),
         );
+
         this.apiData.push(...responseDataWithTimestamps);
+
+        this.isLoading = false;
       });
     } catch (error) {
       console.error(error);
+
+      this.isLoading = false;
     }
   };
 

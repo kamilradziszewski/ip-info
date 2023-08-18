@@ -72,9 +72,12 @@ function Search() {
           {dataStore.searchInputValidationError ? (
             <>{dataStore.searchInputValidationError}</>
           ) : null}
-          <button type="submit">Fetch data</button>
+          <button type="submit" disabled={dataStore.isLoading}>
+            {dataStore.isLoading ? "Loading…" : "Fetch data"}
+          </button>
           <button
             type="button"
+            disabled={dataStore.isLoading}
             onClick={() => {
               dataStore.clearData();
               setSearchInputValue("");
